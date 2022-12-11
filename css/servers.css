@@ -14,3 +14,8 @@ h1,h2,h3,h4,h5,h6,header,a,button {
 body {
     background-image: url(https://cdnb.artstation.com/p/assets/images/images/013/535/601/large/supawit-oat-fin1.jpg?1540053395)
 }
+
+.first_srv::after {
+    content: " MahSpiSMP.aternos.me";
+    color: white;
+  }
