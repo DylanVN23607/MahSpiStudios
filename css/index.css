@@ -1,0 +1,22 @@
+* {
+    font-family: 'Segoe UI';
+}
+
+h1,h2,h3,h4,h5,h6,header,a,button {
+    color: rgb(255, 255, 255);
+    font-size: 0.3in;
+}
+
+.discord_server {
+    background-color: rgb(53, 53, 53);
+    color: white;
+}
+
+.centered {
+    text-align: center
+}
+
+body {
+    background: url('images/favicon.png') center;
+    background-size: 3.1in;
+}
