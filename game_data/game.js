@@ -61,6 +61,8 @@ function main() {
     rail.style.position="absolute"
     if (y<-17) {
         y=-17; speed_y=0; jumping=false
+    } else {
+        jumping=true
     }
 
     normalPlayer.style.bottom=y+"px"
@@ -70,8 +72,8 @@ function main() {
     x_rail-=10
     if (x_rail<100) {
         if (y<50) {
+            window.location.reload()
            alert("You're Dead!")
-           window.location.reload()
         } else {
             if (y<80) {
                 if (y>70) 
