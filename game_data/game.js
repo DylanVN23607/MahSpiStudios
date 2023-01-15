@@ -95,7 +95,6 @@ function increase_score() {
 
 function death() {
     window.location.reload()
-    alert("You're Dead!")
 }
 
 // Main
@@ -185,4 +184,3 @@ function main() {
     console.log(x_drone)
     setTimeout(()=>{main()},30)
 }
-
