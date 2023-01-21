@@ -1,10 +1,12 @@
-let normalPlayer = document.getElementById("normal")
-let jumpPlayer = document.getElementById("jump")
-let crouchPlayer = document.getElementById("crouch")
-let rail = document.getElementById("rail")
-let drone = document.getElementById("drone")
-let crouchButton = document.getElementById("crouchBtn")
-let jumpButton = document.getElementById("jumpBtn")
+const normalPlayer = document.getElementById("normal")
+const jumpPlayer = document.getElementById("jump")
+const crouchPlayer = document.getElementById("crouch")
+const rail = document.getElementById("rail")
+const drone = document.getElementById("drone")
+const crouchButton = document.getElementById("crouchBtn")
+const jumpButton = document.getElementById("jumpBtn")
+const mobile = document.getElementById("mobile_checkbox");
+const mobile_container = document.getElementById("mobile_container")
 let jumping = true;
 let crouching = false;
 let x_rail = 800;
@@ -35,7 +37,9 @@ crouchButton.addEventListener("click",()=>{
 
 function jump() {
     if (!jumping) {
-        speed_y=22
+        if (!crouching){
+            speed_y=22
+        }
     }
 }
 
@@ -47,35 +51,36 @@ function addControls() {
         if (!jumping){jumpPlayer.style.opacity=0
         normalPlayer.style.opacity=1}
 
-    window.addEventListener("keydown",(event)=>{
-        if (event.key=='ArrowDown') {
-            crouching=true
-        }
-    })
+    if (mobile.checked==false) {window.addEventListener("keydown",(event)=>{
+            if (event.key=='ArrowDown') {
+                crouching=true
+            }
+        })
     
-    window.addEventListener("keyup",(event)=>{
-        if (event.key=='ArrowDown') {
-            crouching=false
-        }
-    })
+        window.addEventListener("keyup",(event)=>{
+            if (event.key=='ArrowDown') {
+                crouching=false
+            }
+        })
 
-    window.addEventListener("keydown",(event)=>{
-        if (event.key=='ArrowUp') {
-            jump()
-        }
-    })
+        window.addEventListener("keydown",(event)=>{
+            if (event.key=='ArrowUp') {
+                jump()
+            }
+        })
 
-    window.addEventListener("keydown",(event)=>{
-        if (event.key==' ') {
-            jump()
-        }
-    })
+        window.addEventListener("keydown",(event)=>{
+            if (event.key==' ') {
+                jump()
+            }
+        })
 
-    window.addEventListener("keydown",(event)=>{
-        if (event.key=='W') {
-            speed_y=22
-        }
-    })
+       window.addEventListener("keydown",(event)=>{
+            if (event.key=='W') {
+                speed_y=22
+            }
+        })
+    }
 
 }
 
@@ -100,6 +105,15 @@ function death() {
     window.location.reload()
 }
 
+function start() {
+    main()
+    increase_score()
+    document.getElementById('start').remove()
+    addControls()
+    mobile_container.style.opacity=0
+    document.getElementById("start").remove()
+}
+
 // Main
 
 
@@ -107,8 +121,15 @@ function death() {
 
 
 function main() {
-    jumpButton.style.opacity=1
-    crouchButton.style.opacity=1
+    if (mobile.checked==true) {
+        jumpButton.style.opacity=1
+        crouchButton.style.opacity=1
+    } else {
+        jumpButton.style.opacity=0
+        crouchButton.style.opacity=0
+    }
+    
+
 
     speed_y-=1.5
     y+=speed_y
