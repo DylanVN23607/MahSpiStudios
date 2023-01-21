@@ -22,13 +22,16 @@ function save_HScore() {
 
 HScore = JSON.parse(localStorage.getItem("variables"))
 
-crouchButton.addEventListener("mousedown",()=>{
-    crouching=true
+crouchButton.addEventListener("click",()=>{
+    if (!crouching) {
+        crouching=true
+        crouchButton.innerHTML="Crouching"
+    } else {
+        crouching=false
+        crouchButton.innerHTML="Not crouching"
+    }
 })
 
-crouchButton.addEventListener("mouseup",()=>{
-    crouching=false
-})
 
 function jump() {
     if (!jumping) {
@@ -184,3 +187,4 @@ function main() {
     console.log(x_drone)
     setTimeout(()=>{main()},30)
 }
+
