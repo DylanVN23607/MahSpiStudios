@@ -2,14 +2,15 @@ const normalPlayer = document.getElementById("normal")
 const jumpPlayer = document.getElementById("jump")
 const crouchPlayer = document.getElementById("crouch")
 const rail = document.getElementById("rail")
+const rail2 = document.getElementById("rail2")
 const drone = document.getElementById("drone")
 const crouchButton = document.getElementById("crouchBtn")
 const jumpButton = document.getElementById("jumpBtn")
-const mobile = document.getElementById("mobile_checkbox");
-const mobile_container = document.getElementById("mobile_container")
 let jumping = true;
 let crouching = false;
+let mobile;
 let x_rail = 800;
+let x_rail2 = 2000;
 let x_drone = 1500;
 let score = 0;
 let HScore = 0;
@@ -17,6 +18,22 @@ let speed_y = 0;
 let y = 125;
 
 let save_v;
+
+function checkMobile() {
+    let answer = window.orientation > 1;
+    if (answer==true) {
+        mobile=true
+    } else {
+        if (answer==false) {
+            mobile=false
+        }
+    }
+}
+checkMobile()
+
+document.body.style.overflow="hidden"
+document.body.style.overflow="auto"
+
 
 function save_HScore() {
     localStorage.setItem("variables", JSON.stringify(HScore))
@@ -51,7 +68,7 @@ function addControls() {
         if (!jumping){jumpPlayer.style.opacity=0
         normalPlayer.style.opacity=1}
 
-    if (mobile.checked==false) {window.addEventListener("keydown",(event)=>{
+    if (!mobile) {window.addEventListener("keydown",(event)=>{
             if (event.key=='ArrowDown') {
                 crouching=true
             }
@@ -121,7 +138,7 @@ function start() {
 
 
 function main() {
-    if (mobile.checked==true) {
+    if (mobile) {
         jumpButton.style.opacity=1
         crouchButton.style.opacity=1
     } else {
@@ -137,7 +154,11 @@ function main() {
     jumpPlayer.style.position="absolute"
     crouchPlayer.style.position="absolute"
     drone.style.position="absolute"
+    drone.style.opacity="1"
     rail.style.position="absolute"
+    rail.style.opacity="1"
+    rail2.style.position="absolute"
+    rail2.style.opacity="1"
     if (y<-17) {
         y=-17; speed_y=0; jumping=false
     } else {
@@ -151,11 +172,13 @@ function main() {
     drone.style.left=x_drone+"px"
 
     rail.style.left=x_rail+"px"
+    rail2.style.left=x_rail2+"px"
+    rail2.style.bottom="-25px"
     rail.style.bottom="-25px"
     drone.style.bottom="90px"
     x_rail-=15
     x_drone-=15
-    if (x_rail<100) {
+    if (x_rail<100 || x_rail2<100) {
         if (y<50) {
             death()
         } else {
@@ -170,6 +193,10 @@ function main() {
 
         if (x_rail<-175) {
             x_rail = 800;
+        }
+
+        if (x_rail2<-175) {
+            x_rail2 = 2000;
         }
 
         if (x_drone<-175) {
@@ -205,7 +232,5 @@ function main() {
             save_HScore()
         }
     // RESET
-    console.log(x_drone)
     setTimeout(()=>{main()},30)
 }
-
